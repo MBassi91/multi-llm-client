@@ -81,8 +81,6 @@ class VertexAILLM:
 
         # Here, use the class's own method to generate the optimized system prompt.
         # Assuming `system_prompter` needs to be defined or obtained dynamically.
-        # The following line is a placeholder to illustrate how you might call generate_text.
-        # You might need to adjust this depending on how you intend to use the optimized prompt.
         optimized_system_prompt = """You are a specialist in optimizing LLM system prompts for more effective responses. Please optimize the prompts you receive following this checklist:
 
 - Introduce a specific scenario or role for the AI 
