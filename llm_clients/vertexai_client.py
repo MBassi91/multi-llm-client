@@ -3,13 +3,13 @@ from vertexai.language_models import TextGenerationModel
 from vertexai.preview.generative_models import GenerativeModel
 
 class VertexAILLM:
-    def __init__(self, model_name="gemini", project_id=None, location="us-central1",
+    def __init__(self, model_name="gemini-1.0", project_id=None, location="us-central1",
                  max_output_tokens=2048, temperature=0, top_p=1, top_k=40):
         """
         Initialize the Vertex AI LLM client with specified parameters.
 
         Parameters:
-        - model_name (str, optional): The name of the model to use. Defaults to "gemini".
+        - model_name (str, optional): The name of the model to use. Defaults to "gemini-1.0".
         - project_id (str, optional): Google Cloud project ID. If None, defaults to Vertex AI's default process.
         - location (str, optional): Google Cloud location for the API call. Defaults to "us-central1".
         - max_output_tokens (int, optional): The maximum number of tokens to generate. Defaults to 2048.
@@ -52,8 +52,13 @@ class VertexAILLM:
         if self.model_name == "bison":
             model_instance = TextGenerationModel.from_pretrained("text-bison")
             response = model_instance.predict(text, **parameters)
-        elif self.model_name == "gemini":
-            model_instance = GenerativeModel("gemini-1.5-pro")
+        elif self.model_name == "gemini-1.0":
+            model_instance = GenerativeModel("gemini-1.0-pro")
+            response = model_instance.generate_content(
+                text, generation_config={**parameters, "top_k": self.top_k}
+            )
+        elif self.model_name == "gemini-1.5":
+            model_instance = GenerativeModel("gemini-1.5-pro-preview-0409")
             response = model_instance.generate_content(
                 text, generation_config={**parameters, "top_k": self.top_k}
             )
