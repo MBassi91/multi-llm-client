@@ -1,6 +1,9 @@
 import vertexai
 from vertexai.language_models import TextGenerationModel
 from vertexai.preview.generative_models import GenerativeModel
+from vertexai.preview.language_models import TextEmbeddingModel
+
+
 
 class VertexAILLM:
     def __init__(self, model_name="gemini-1.0", project_id=None, location="us-central1",
@@ -107,6 +110,18 @@ Prompt to be optimized:
 
         
         return optimized_text
+    
+    def get_text_embeddings(self, texts):
+        """
+        Generate text embeddings using the TextEmbeddingModel.
+        Parameters:
+        - texts (list of str): A list of text strings to generate embeddings for.
+        Returns:
+        - list of list of float: A list of embeddings, where each embedding is a list of float values.
+        """
+        model = TextEmbeddingModel.from_pretrained("textembedding-gecko")
+        embeddings = model.get_embeddings(texts)
+        return [embedding.values for embedding in embeddings]
 
 
 
