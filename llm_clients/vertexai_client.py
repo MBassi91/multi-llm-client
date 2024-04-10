@@ -53,7 +53,7 @@ class VertexAILLM:
             model_instance = TextGenerationModel.from_pretrained("text-bison")
             response = model_instance.predict(text, **parameters)
         elif self.model_name == "gemini":
-            model_instance = GenerativeModel("gemini-1.0-pro")
+            model_instance = GenerativeModel("gemini-1.5-pro")
             response = model_instance.generate_content(
                 text, generation_config={**parameters, "top_k": self.top_k}
             )
